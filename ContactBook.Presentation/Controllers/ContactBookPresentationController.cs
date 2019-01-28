@@ -28,7 +28,7 @@ namespace ContactBook.Presentation.Controllers
                 //Called Member default GET All records  
                 //GetAsync to send a GET request   
                 // PutAsync to send a PUT request 
-                var responseTask = Client.GetAsync("Contact");
+                var responseTask = Client.GetAsync("ContactBookAPI");
                 responseTask.Wait();
                 //To store result of web api response
                 var result = responseTask.Result;

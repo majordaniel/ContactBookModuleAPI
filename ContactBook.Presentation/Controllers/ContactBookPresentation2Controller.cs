@@ -25,7 +25,7 @@ namespace ContactBook.Presentation.Controllers
         public ActionResult Index()
         {
             List<ContactViewModel> con = new List<ContactViewModel>();
-            HttpResponseMessage resp = client.GetAsync("Contact").Result;
+            HttpResponseMessage resp = client.GetAsync("ContactBookAPI2").Result;
             if (resp.IsSuccessStatusCode)
             {
                 con = resp.Content.ReadAsAsync<List<ContactViewModel>>().Result;
@@ -41,7 +41,7 @@ namespace ContactBook.Presentation.Controllers
         }
         public ActionResult Create(ContactViewModel IncData)
         {
-            client.PostAsJsonAsync<ContactViewModel>("Contact", IncData).ContinueWith((e => e.Result.EnsureSuccessStatusCode()));
+            client.PostAsJsonAsync<ContactViewModel>("ContactBookAPI2", IncData).ContinueWith((e => e.Result.EnsureSuccessStatusCode()));
 
             return RedirectToAction("Index");
         }
@@ -54,7 +54,7 @@ namespace ContactBook.Presentation.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var ContactDetail = client.GetAsync("Contact/" + id.ToString()).Result;
+            var ContactDetail = client.GetAsync("ContactBookAPI2/" + id.ToString()).Result;
             return View(ContactDetail.Content.ReadAsAsync<ContactViewModel>().Result);
         }
 
@@ -68,7 +68,7 @@ namespace ContactBook.Presentation.Controllers
         public ActionResult Edit(ContactViewModel OldContact)
         {
 
-            var NewContactDetails = client.PutAsJsonAsync<ContactViewModel>("Contacts/" + OldContact.ContactId, OldContact).Result;
+            var NewContactDetails = client.PutAsJsonAsync<ContactViewModel>("ContactBookAPI2/" + OldContact.ContactId, OldContact).Result;
             return RedirectToAction("Index");
         }
         /// <summary>
@@ -78,7 +78,7 @@ namespace ContactBook.Presentation.Controllers
         /// <returns></returns>
         public ActionResult Delete(int Id)
         {
-            var ContactDetail = client.DeleteAsync("Contacts/" + Id.ToString()).Result;
+            var ContactDetail = client.DeleteAsync("ContactBookAPI2/" + Id.ToString()).Result;
             return RedirectToAction("Index");
         }
     }
